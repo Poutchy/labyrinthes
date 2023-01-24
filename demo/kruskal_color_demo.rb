@@ -1,14 +1,14 @@
 require_relative '../grid/colored_grid'
-require_relative '../algorithms/binary_tree'
+require_relative '../algorithms/kruskal'
 
 grid = ColoredGrid.new(25, 25)
-BinaryTree.on(grid)
+Kruskals.on(grid)
 
 start = grid[grid.rows / 2, grid.columns / 2]
 
 grid.distances = start.distances
 
-filename = "images/colorized_binary_Tree.png"
+filename = "images/colorized_kruskal.png"
 img = grid.to_png()
 img.save(filename)
 puts "saved to #{filename}"

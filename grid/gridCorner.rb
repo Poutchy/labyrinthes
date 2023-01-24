@@ -1,4 +1,4 @@
-require '../cells/cell2'
+require_relative '../cells/cell2'
 require 'chunky_png'
 
 class Grid
@@ -92,21 +92,74 @@ class Grid
         output
     end
 
-    def to_png_with_inset
+    def background_color_for(cell)
         nil
     end
 
-    def to_png_without_inset
-        x1 = cell.column * cell_size
-        y1 = cell.row * cell_size
-        x2 = (cell.column + 1) * cell_size
-        y2 = (cell.row + 1) * cell_size
+    def to_png_without_inset(img, cell, mode, cell_size, wall, x, y)
+        x1, y1 = x, y
+        x2 = x1 + cell_size
+        y2 = y1 + cell_size
 
-        img.line(x1, y1, x2, y1, wall) unless cell.north
-        img.line(x1, y1, x1, y2, wall) unless cell.west
+        if mode == :backgrounds
+            color = background_color_for(cell)
+            img.rect(x1, y1, x2, y2, color, color) if color
+        else
+            img.line(x1, y1, x2, y1, wall) unless cell.north
+            img.line(x1, y1, x1, y2, wall) unless cell.west
 
-        img.line(x2, y1, x2, y2, wall) unless cell.linked?(cell.east)
-        img.line(x1, y2, x2, y2, wall) unless cell.linked?(cell.south)
+            img.line(x2, y1, x2, y2, wall) unless cell.linked?(cell.east)
+            img.line(x1, y2, x2, y2, wall) unless cell.linked?(cell.south)
+        end
+    end
+
+    def cell_coordinqtes_with_inset(x, y, cell_size, inset)
+        x1, x4 = x, x + cell_size
+        x2 = x1 + inset
+        x3 = x4 - inset
+
+        y1, y4 = y, y + cell_size
+        y2 = y1 + inset
+        y3 = y4 - inset
+
+        [x1, x2, x3, x4, y1, y2, y3, y4]
+    end
+
+    def to_png_with_inset(img, cell, mode, cell_size, wall, x, y, inset)
+        x1, x2, x3, x4, y1, y2, y3, y4 = cell_coordinqtes_with_inset(x, y, cell_size, inset)
+
+        if mode == :backgrounds
+            color = background_color_for(cell)
+            img.rect(x1, y1, x2, y2, color, color) if color
+        else
+            if cell.linked?(cell.north)
+                img.line(x2, y1, x2, y2, wall)
+                img.line(x3, y1, x3, y2, wall)
+            else
+                img.line(x2, y2, x3, y2, wall)
+            end
+
+            if cell.linked?(cell.south)
+                img.line(x2, y3, x2, y4, wall)
+                img.line(x3, y3, x3, y4, wall)
+            else
+                img.line(x2, y3, x3, y3, wall)
+            end
+
+            if cell.linked?(cell.west)
+                img.line(x1, y2, x2, y2, wall)
+                img.line(x1, y3, x2, y3, wall)
+            else
+                img.line(x2, y2, x2, y3, wall)
+            end
+
+            if cell.linked?(cell.east)
+                img.line(x3, y2, x4, y2, wall)
+                img.line(x3, y3, x4, y3, wall)
+            else
+                img.line(x3, y2, x3, y3, wall)
+            end
+        end
     end
 
     def to_png(cell_size: 10, inset: 0)
@@ -119,10 +172,18 @@ class Grid
 
         img = ChunkyPNG::Image.new(img_width + 1, img_height + 1, background)
 
-        each_cell do |cell|
-            if inset = (cell_size * inset).to_i
+        [:backgrounds, :walls].each do |mode|
+            each_cell do |cell|
+                x = cell.column * cell_size
+                y = cell.row * cell_size
+                
+                if inset > 0
+                    to_png_with_inset(img, cell, mode, cell_size, wall, x, y, inset)
+                else
+                    to_png_without_inset(img, cell, mode, cell_size, wall, x, y)
+                end
+            end
         end
-
         img
     end
 end

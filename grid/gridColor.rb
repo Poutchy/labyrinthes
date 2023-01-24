@@ -1,4 +1,4 @@
-require '../cells/cell2'
+require_relative '../cells/cell2'
 require 'chunky_png'
 
 class Grid
