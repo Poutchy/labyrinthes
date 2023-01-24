@@ -1,5 +1,5 @@
-require 'colored_grid'
-require 'binary_tree'
+require '../grid/colored_grid'
+require '../algorithms/binary_tree'
 
 grid = ColoredGrid.new(25, 25)
 BinaryTree.on(grid)
