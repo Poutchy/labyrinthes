@@ -39,7 +39,7 @@ class Grid
 
     def random_cell
         row = rand(@rows)
-        column = rand(grid[row].count)
+        column = rand(@grid[row].count)
 
         self[row, column]
     end

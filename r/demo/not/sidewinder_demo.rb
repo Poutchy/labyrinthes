@@ -6,5 +6,7 @@ Sidewinder.on(grid)
 
 puts grid
 
-img = grid.to_png
-img.save "../images/r_sidewinder.png"
+filename = "images/r_sidewinder.png"
+File.new(filename, "a+") rescue nil
+grid.to_png.save(filename)
+puts "saved to #{filename}"

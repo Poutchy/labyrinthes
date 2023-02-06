@@ -7,4 +7,7 @@ BinaryTree.on(grid)
 puts grid
 
 img = grid.to_png()
-img.save "../images/r_binary_tree.png"
+filename = "images/not/r_binary_tree.png"
+File.new(filename, "a+") rescue nil
+save(grid, filename)
+puts "saved to #{filename}"

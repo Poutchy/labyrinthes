@@ -9,7 +9,7 @@ class SimplifiedPrims
 
             if available_neighbors.any?
                 neighbor = available_neighbors.sample
-                cell.links(neighbor)
+                cell.link(neighbor)
                 active.push(neighbor)
             else
                 active.delete(cell)
