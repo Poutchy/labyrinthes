@@ -30,15 +30,15 @@ class Ellers
 
             @cells_in_set.delete(loser)
         end
-    end
 
-    def next
-        RowState.new(@next_set)
-    end
-
-    def each_set
-        @cells_in_set.each { |set, cells| yield set, cells }
-        self
+        def next
+            RowState.new(@next_set)
+        end
+        
+        def each_set
+            @cells_in_set.each { |set, cells| yield set, cells }
+            self
+        end
     end
 
     def self.on(grid)
