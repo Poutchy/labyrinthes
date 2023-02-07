@@ -1,5 +1,5 @@
-require_relative '../grid/colored_grid'
-require_relative '../algorithms/prims'
+require_relative '../../grid/colored_grid'
+require_relative '../../algorithms/prims'
 
 grid = ColoredGrid.new(25, 25)
 SimplifiedPrims.on(grid)
