@@ -34,7 +34,7 @@ class TruePrims
 
             if available_neighbors.any?
                 neighbor = available_neighbors.min { |a, b| costs[a] <=> costs[b] }
-                cell.links(neighbor)
+                cell.link(neighbor)
                 active.push(neighbor)
             else
                 active.delete(cell)
