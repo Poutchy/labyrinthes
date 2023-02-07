@@ -5,6 +5,7 @@ require_relative '../algorithms/growing_tree'
 require_relative '../algorithms/kruskal'
 require_relative '../algorithms/prims'
 require_relative '../algorithms/recursive_division'
+require_relative '../algorithms/recursive_backtracker'
 require_relative '../algorithms/sidewinder'
 
 def generation(x, y, algorithm, name)
@@ -77,6 +78,7 @@ generation(100, 100, BinaryTree, "binary_tree")
 generation(100, 100, Ellers, "ellers")
 generation(100, 100, Kruskals, "kruskals")
 generation(100, 100, RecursiveDivision, "recursive_division")
+generation(100, 100, RecursiveBacktracker, "recursive_backtracker")
 generation(100, 100, Sidewinder, "sidewinder")
 
 generationGr(100, 100)

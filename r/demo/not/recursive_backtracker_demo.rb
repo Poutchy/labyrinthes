@@ -1,19 +1,17 @@
 require_relative '../../grid/colored_grid'
-require_relative '../../algorithms/recursive_division'
+require_relative '../../algorithms/recursive_backtracker'
 
 def save(grid, filename)
     grid.to_png.save(filename)
     puts "saved to #{filename}"
 end
 
-grid = ColoredGrid.new(20, 20)
+grid = Grid.new(20, 20)
 RecursiveDivision.on(grid)
 
-start = grid[grid.rows / 2, grid.columns / 2]
-
-grid.distances = start.distances
+puts grid
 
 img = grid.to_png()
-filename = "images/colored/r_recursive_division.png"
+filename = "images/not/r_recursive_backtracker.png"
 File.new(filename, "a+") rescue nil
 save(grid, filename)
