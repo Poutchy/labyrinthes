@@ -1,0 +1,76 @@
+= rubyvor
+
+Efficient Voronoi diagrams and Delaunay triangulation for Ruby
+
+== Description
+
+RubyVor provides efficient computation of Voronoi diagrams and
+Delaunay triangulation for a set of Ruby points. It is intended to
+function as a complemenet to GeoRuby. These structures can be used to
+compute a nearest-neighbor graph for a set of points. This graph can
+in turn be used for proximity-based clustering of the input points.
+
+== Usage:
+
+    require 'lib/ruby_vor'
+    require 'pp'
+
+    points = [
+      RubyVor::Point.new(120, 290),
+      RubyVor::Point.new(110, 120),
+      RubyVor::Point.new(160, 90.2),
+      RubyVor::Point.new(3.14159265, 3.14159265)
+    ]
+
+    # Compute the diagram & triangulation
+    comp = RubyVor::VDDT::Computation.from_points(points)
+
+    puts "The nearest-neighbor graph:"
+    pp comp.nn_graph
+
+    puts "\nThe minimum-spanning tree:"
+    pp comp.minimum_spanning_tree
+
+#
+# Visualize these things as SVGs
+#
+
+    # Just the triangulation
+    RubyVor::Visualizer.make_svg(comp, :name => 'tri.svg')
+
+    # Just the MST
+    RubyVor::Visualizer.make_svg(comp, :name => 'mst.svg', :triangulation => false, :mst => true)
+
+    # Voronoi diagram and the triangulation
+    RubyVor::Visualizer.make_svg(comp, :name => 'dia.svg', :voronoi_diagram => true)
+
+
+== LICENSE:
+
+Original public-domain C code (by Steven Fortune; http://ect.bell-labs.com/who/sjf/) and
+memory-management fixes for said C code (by Derek Bradley; http://www.derekbradley.ca)
+used (and released under the MIT-LICENSE) with permission.
+
+
+(The MIT License)
+
+Copyright (c) 2008-2011 Brendan Ribera <brendan.ribera+rubyvor@gmail.com>
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
