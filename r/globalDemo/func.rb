@@ -10,6 +10,7 @@ require_relative '../algorithms/prims'
 require_relative '../algorithms/recursive_division'
 require_relative '../algorithms/recursive_backtracker'
 require_relative '../algorithms/sidewinder'
+require_relative '../algorithms/aldous_brother.rb'
 
 def generationNot(x, y, algorithm, name, type)
     grid = type.new(x, y)
@@ -203,6 +204,118 @@ def generationHGrColor(x, y, type)
     filename = "images/colored/r_hex_growing_tree_mix.png"
     File.new(filename, "a+") rescue nil
     grid.to_png().save(filename)
+    puts name + " saved to #{filename}"
+    
+end
+
+def generationOnlyColor(x, y, algorithm, name, type)
+    grid = type.new(x, y)
+    algorithm.on(grid)
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+
+    filename = "images/only/r_"+name+".png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts "only "+name + " saved to #{filename}"
+end
+
+def generationGrOnlyColor(x, y, type)
+    name = "only growing tree random"
+    
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| list.sample }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_growing_tree_random.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts name + " saved to #{filename}"
+    
+    ##################################################
+    
+    name = "only growing tree last"
+
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| list.last }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_growing_tree_last.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts name + " saved to #{filename}"
+    
+    ##################################################
+    
+    name = "only growing tree mix"
+    
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| (rand(2) == 0) ? list.last : list.sample }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_growing_tree_mix.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts name + " saved to #{filename}"
+    
+end
+
+def generationHGrOnlyColor(x, y, type)
+    name = "only hexagonal growing tree random"
+    
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| list.sample }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_hex_growing_tree_random.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts name + " saved to #{filename}"
+    
+    ##################################################
+    
+    name = "only hexagonal growing tree last"
+
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| list.last }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_hex_growing_tree_last.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
+    puts name + " saved to #{filename}"
+    
+    ##################################################
+    
+    name = "only hexagonal growing tree mix"
+    
+    grid = type.new(x, y)
+    GrowingTree.on(grid) { |list| (rand(2) == 0) ? list.last : list.sample }
+    
+    start = grid[grid.rows / 2, grid.columns / 2]
+    
+    grid.distances = start.distances
+    
+    filename = "images/only/r_hex_growing_tree_mix.png"
+    File.new(filename, "a+") rescue nil
+    grid.to_color().save(filename)
     puts name + " saved to #{filename}"
     
 end

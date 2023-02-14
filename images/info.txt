@@ -1,1 +1,0 @@
-attention, les images ne sont disponibles que si vous les générez à l'aide des fonctions de tests images
