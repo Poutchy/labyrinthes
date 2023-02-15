@@ -3,6 +3,7 @@ require_relative '../grid/hexaGrid'
 require_relative '../grid/hexaGridColor'
 require_relative '../algorithms/binary_tree'
 require_relative '../algorithms/ellers'
+require_relative '../algorithms/hunt_and_kill'
 require_relative '../algorithms/growing_tree'
 require_relative '../algorithms/kruskal'
 require_relative '../algorithms/kruskalHex'
@@ -10,7 +11,7 @@ require_relative '../algorithms/prims'
 require_relative '../algorithms/recursive_division'
 require_relative '../algorithms/recursive_backtracker'
 require_relative '../algorithms/sidewinder'
-require_relative '../algorithms/aldous_brother.rb'
+require_relative '../algorithms/aldous_broder.rb'
 
 def generationNot(x, y, algorithm, name, type)
     grid = type.new(x, y)

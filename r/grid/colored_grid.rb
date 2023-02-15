@@ -11,7 +11,7 @@ class ColoredGrid < Grid
         distance = @distances[cell] or return nil
         intensity = (@maximum - distance).to_f / @maximum
         dark = (255 * intensity).round
-        bright = 128 + (127 * intensity).round
+        bright = 10 + (127 * intensity).round
         ChunkyPNG::Color.rgb(dark, bright, dark)
     end
 end
