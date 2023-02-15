@@ -1,4 +1,4 @@
-require 'gridColor'
+require 'grid'
 
 class DistanceGrid < Grid
     attr_accessor :distances

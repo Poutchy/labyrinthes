@@ -1,4 +1,4 @@
-require_relative "colored_grid"
+require_relative "grid"
 require_relative "../cells/hex_cell"
 
 class HexGrid < Grid
